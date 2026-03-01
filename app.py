@@ -1,6 +1,6 @@
 import sqlite3
 import hashlib
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 import pickle
 import jwt
 import urllib3
