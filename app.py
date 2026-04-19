@@ -63,9 +63,19 @@ def greet():
     return f"Hello, {name}!"
 
 # 8. **Insecure Deserialization**
+def escape_json_strings(value):
+    if isinstance(value, str):
+        return escape(value)
+    if isinstance(value, list):
+        return [escape_json_strings(item) for item in value]
+    if isinstance(value, dict):
+        return {key: escape_json_strings(item) for key, item in value.items()}
+    return value
+
 def insecure_deserialize(data):
     import json  # Import required for safe deserialization
-    return json.loads(data)
+    deserialized = json.loads(data)
+    return escape_json_strings(deserialized)
 
 # 9. **Using Components with Known Vulnerabilities**
 def use_vulnerable_library():
